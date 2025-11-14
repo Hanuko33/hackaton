@@ -40,16 +40,16 @@ class NeutronUraniumManager:
             SCREEN_HEIGHT,
         )
         self.uranium_manager.update(state)
-        uranium_delay = 80 - state.tick / 100  # TODO: test balancing
-        uranium_delay = uranium_delay if uranium_delay < 10 else 10
+        uranium_delay = 60 - state.tick / 75
+        uranium_delay = uranium_delay if uranium_delay > 10 else 10
+        print(state.reactor_sanity)
+        print(state.tick / 60)
 
         if (self.lt_uranium + uranium_delay < state.tick):
             self.lt_uranium = state.tick
             self.add_uranium(randint(0, SCREEN_WIDTH), randint(
                 0, SCREEN_HEIGHT), state.tick)
-        neutron_delay = state.tick / 100 # TODO: test balancing
-        neutron_delay = neutron_delay if neutron_delay > 160 else 160
-        if (self.lt_neutron + neutron_delay < state.tick):
+        if (self.lt_neutron + 160 < state.tick):
             self.lt_neutron = state.tick
             self.add_neutron(randint(0, SCREEN_WIDTH,), randint(
                 0, SCREEN_HEIGHT))
