@@ -2,6 +2,7 @@ from neutron import NeutronManager
 from uranium import UraniumManager
 import pygame
 from random import randint
+from explosion import explosion_manager
 
 
 class NeutronUraniumManager:
@@ -19,7 +20,7 @@ class NeutronUraniumManager:
         for u in self.uranium_manager.uranium:
             for n in self.neutron_manager.neutrons:
                 if (n.is_colliding(u)):
-                    #  TODO: explode
+                    explosion_manager.add(n.x, n.y)
                     self.uranium_manager.uranium.remove(u)
                     rn = randint(0, 100)  # TODO: Test different chances
 
@@ -42,8 +43,6 @@ class NeutronUraniumManager:
         self.uranium_manager.update(state)
         uranium_delay = 60 - state.tick / 75
         uranium_delay = uranium_delay if uranium_delay > 10 else 10
-        print(state.reactor_sanity)
-        print(state.tick / 60)
 
         if (self.lt_uranium + uranium_delay < state.tick):
             self.lt_uranium = state.tick
