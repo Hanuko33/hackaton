@@ -12,7 +12,7 @@ class Player:
         self.vx = 0
         self.vy = 0
         self.points = 0
-        self.lives = 5
+
 
     def draw(self, screen):
         # screen.blit(self.image, (self.x, self.y))

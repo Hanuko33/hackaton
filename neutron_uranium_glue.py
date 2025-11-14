@@ -30,7 +30,7 @@ class NeutronUraniumManager:
                     # 25% for nothing to happen
                     break
 
-    def update(self, t, SCREEN_WIDTH, SCREEN_HEIGHT, player):
+    def update(self, state, SCREEN_WIDTH, SCREEN_HEIGHT, player):
         self.collisions()
         positions = self.uranium_manager.to_positions()
         positions.append(player.to_position())
@@ -39,13 +39,18 @@ class NeutronUraniumManager:
             SCREEN_WIDTH,
             SCREEN_HEIGHT,
         )
-        self.uranium_manager.update()
-        if (self.lt_uranium + 40 < t):  # TODO: increease speed over time
-            self.lt_uranium = t
+        self.uranium_manager.update(state)
+        uranium_delay = 80 - state.tick / 100  # TODO: test balancing
+        uranium_delay = uranium_delay if uranium_delay < 10 else 10
+
+        if (self.lt_uranium + uranium_delay < state.tick):
+            self.lt_uranium = state.tick
             self.add_uranium(randint(0, SCREEN_WIDTH), randint(
-                0, SCREEN_HEIGHT), t)
-        if (self.lt_neutron + 160 < t):  # TODO: decrease speed over time
-            self.lt_neutron = t
+                0, SCREEN_HEIGHT), state.tick)
+        neutron_delay = state.tick / 100 # TODO: test balancing
+        neutron_delay = neutron_delay if neutron_delay > 160 else 160
+        if (self.lt_neutron + neutron_delay < state.tick):
+            self.lt_neutron = state.tick
             self.add_neutron(randint(0, SCREEN_WIDTH,), randint(
                 0, SCREEN_HEIGHT))
 
