@@ -21,11 +21,12 @@ class State:
         bar_width = int(250 * self.reactor_sanity / self.max_reactor_sanity)
         screen.blit(empty_bar_texture, (55, 500))
         chopped = pygame.transform.chop(
-            bar_texture, (bar_width - self.reactor_sanity / self.max_reactor_sanity,
-                          0,
-                          250 - bar_width,
-                          0
-                          )
+            bar_texture, (
+                bar_width - self.reactor_sanity / self.max_reactor_sanity,
+                0,
+                250 - bar_width,
+                0
+            )
         )
         screen.blit(chopped, (55, 500))
         text = font.render(f"Reactor Sanity: {
