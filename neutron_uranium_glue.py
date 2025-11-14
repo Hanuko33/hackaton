@@ -22,7 +22,7 @@ class NeutronUraniumManager:
                 if (n.is_colliding(u)):
                     explosion_manager.add(n.x, n.y)
                     self.uranium_manager.uranium.remove(u)
-                    rn = randint(0, 100)  # TODO: Test different chances
+                    rn = randint(0, 100)
 
                     if rn < 25:  # 25% for a one to appear
                         self.add_neutron(u.x, u.y)

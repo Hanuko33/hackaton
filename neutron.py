@@ -1,5 +1,8 @@
 import pygame
 
+neutron_image = pygame.image.load("./textures/Neutron.png")
+neutron_image = pygame.transform.scale(neutron_image, (16, 16))
+
 
 class Neutron:
     def __init__(self, x, y):
@@ -8,33 +11,31 @@ class Neutron:
         self.y = y
         self.vy = 0
 
-    def draw(self, screen):  # TODO: IMAGE
-        pygame.draw.rect(screen, (0, 255, 255), (self.x, self.y, 3, 3))
+    def draw(self, screen):
+        screen.blit(neutron_image, (self.x - 8, self.y - 8))
 
     def update(self, SCREEN_WIDTH, SCREEN_HEIGHT):
         self.x += self.vx
         self.y += self.vy
-        # TODO: shouldn't be just 3, should be
-        # neutron_width (or height for below cases)
-        if self.x >= SCREEN_WIDTH - 3:
-            self.vx = (-self.vx) / 3
-            self.x = SCREEN_WIDTH - 3 - 1
-        if self.y >= SCREEN_HEIGHT - 3:
-            self.vy = (-self.vy) / 3
-            self.y = SCREEN_HEIGHT - 3 - 1
+        image_width = 16
+        if self.x >= SCREEN_WIDTH - image_width:
+            self.vx = (-self.vx) / image_width
+            self.x = SCREEN_WIDTH - image_width - 1
+        if self.y >= SCREEN_HEIGHT - image_width:
+            self.vy = (-self.vy) / image_width
+            self.y = SCREEN_HEIGHT - image_width - 1
         if self.x < 0:
             self.x = 1
-            self.vx = (-self.vx) / 3
+            self.vx = (-self.vx) / image_width
         if self.y < 0:
             self.y = 1
-            self.vy = (-self.vy) / 3
+            self.vy = (-self.vy) / image_width
 
     def distance_to_squared(self, x, y):
         return (self.x - x) ** 2 + (self.y - y) ** 2
 
     def is_colliding(self, u):
-        # TODO: DON'T HARD CODE 32, use image radius
-        return self.distance_to_squared(u.x, u.y) < 32 ** 2
+        return self.distance_to_squared(u.x, u.y) < 40 ** 2
 
     def find_closest_position(self, positions):
         if not len(positions):

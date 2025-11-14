@@ -3,6 +3,8 @@ import pygame
 speed = 0.2
 player_width = 10
 player_height = 10
+player_image = pygame.image.load("./textures/Player.png")
+player_image = pygame.transform.scale(player_image, (64, 64))
 
 
 class Player:
@@ -13,12 +15,8 @@ class Player:
         self.vy = 0
         self.points = 0
 
-
     def draw(self, screen):
-        # screen.blit(self.image, (self.x, self.y))
-        # text = str((self.points), True, "white")
-        pygame.draw.rect(screen, (0, 255, 0),
-                         (self.x, self.y, player_width, player_height))
+        screen.blit(player_image, (self.x - 32, self.y - 32))
 
     def to_position(self):
         return (self.x, self.y)
@@ -27,7 +25,7 @@ class Player:
         if (keys[pygame.K_LEFT]):
             self.vx -= speed
         elif self.vx < 0:
-            self.vx += 1
+            self.vx += speed * 2
             if self.vx < 1 and self.vx > -1:
                 self.vx = 0
         if self.vx < -10:
@@ -36,7 +34,7 @@ class Player:
         if (keys[pygame.K_DOWN]):
             self.vy += speed
         elif self.vy > 0:
-            self.vy -= 1
+            self.vy -= speed * 2
             if self.vy < 1 and self.vy > -1:
                 self.vy = 0
         if self.vy > 10:
@@ -45,7 +43,7 @@ class Player:
         if (keys[pygame.K_UP]):
             self.vy -= speed
         elif self.vy < 0:
-            self.vy += 1
+            self.vy += speed * 2
             if self.vy < 1 and self.vy > -1:
                 self.vy = 0
         if self.vy < -10:
@@ -54,7 +52,7 @@ class Player:
         if (keys[pygame.K_RIGHT]):
             self.vx += speed
         elif self.vx > 0:
-            self.vx -= 1
+            self.vx -= speed * 2
             if self.vx < 1 and self.vx > -1:
                 self.vx = 0
         if self.vx > 10:
