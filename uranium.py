@@ -1,5 +1,6 @@
 import pygame
 from random import randint
+from explosion import explosion_manager
 
 
 class Uranium:  # TODO: IMAGE
@@ -51,6 +52,7 @@ class UraniumManager:
                 self.uranium.remove(u)
                 state.score -= 5
                 state.reactor_sanity -= 1
-
-
+                for x in range(-32, 32, 8):
+                    for y in range(-32, 32, 8):
+                        explosion_manager.add(u.x + x, u.y + y)
                 break
