@@ -44,10 +44,13 @@ class UraniumManager:
             retval.append((u.x, u.y))
         return retval
 
-    def update(self):
+    def update(self, state):
         for u in self.uranium:
             u.update()
             if (u.satisfied < 0):
                 self.uranium.remove(u)
-                # TODO: score down, core instability up
+                state.score -= 5
+                state.reactor_sanity -= 1
+
+
                 break

@@ -4,6 +4,7 @@ from pygame.locals import QUIT, MOUSEBUTTONDOWN
 from neutron_uranium_glue import neutron_uranium_manager
 
 from player import Player
+from state import state
 
 pygame.init()
 
@@ -19,7 +20,6 @@ clock = pygame.time.Clock()
 # font = pygame.font.Font("file_name.ttf", 32)
 font = pygame.font.SysFont("Calibri", 32)
 
-t = 0
 running = True
 
 
@@ -37,13 +37,13 @@ player = Player()
 while running:
     pygame.display.update()
     clock.tick(FPS)
-    t = t + 1
+    state.tick += 1
     screen.fill((0, 0, 0))
     handle_events()
     keys = pygame.key.get_pressed()
     player.key(keys)
     neutron_uranium_manager.draw(screen)
-    neutron_uranium_manager.update(t, SCREEN_WIDTH, SCREEN_HEIGHT, player)
+    neutron_uranium_manager.update(state, SCREEN_WIDTH, SCREEN_HEIGHT, player)
     player.update(SCREEN_WIDTH, SCREEN_HEIGHT)
     player.draw(screen)
 
