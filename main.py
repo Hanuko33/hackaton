@@ -17,6 +17,7 @@ screen: "pygame.Surface" = pygame.display.set_mode(
     (SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("URANEX HALF-LIFE")
 clock = pygame.time.Clock()
+game_over_image = pygame.image.load("textures/GAME_OVER.png")
 
 # font = pygame.font.Font("file_name.ttf", 32)
 font = pygame.font.SysFont("Calibri", 32)
@@ -37,6 +38,7 @@ def handle_events():
 
 
 player = Player()
+
 while running:
     pygame.display.update()
     clock.tick(FPS)
@@ -52,5 +54,12 @@ while running:
     explosion_manager.clear_explosions()
     explosion_manager.draw(screen)
     state.draw(screen)
-    
+    if state.reactor_sanity <= 0:
+        if state.lost_tick == -1:
+            for i in range(0, SCREEN_WIDTH, 60):
+                for j in range(0, SCREEN_HEIGHT, 60):
+                    explosion_manager.add(i, j)
+            state.lost_tick = state.tick
+        if state.lost_tick + 10 < state.tick:
+            screen.blit(game_over_image, (0, 0))
 pygame.quit()

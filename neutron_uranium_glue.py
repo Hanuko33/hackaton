@@ -16,10 +16,11 @@ class NeutronUraniumManager:
         self.uranium_manager.draw(screen)
         self.neutron_manager.draw(screen)  # NOTE: Draw neutrons ABOVE uranium
 
-    def collisions(self):
+    def collisions(self, state):
         for u in self.uranium_manager.uranium:
             for n in self.neutron_manager.neutrons:
                 if (n.is_colliding(u)):
+                    state.score += 1
                     explosion_manager.add(n.x, n.y)
                     self.uranium_manager.uranium.remove(u)
                     rn = randint(0, 100)
@@ -32,7 +33,7 @@ class NeutronUraniumManager:
                     break
 
     def update(self, state, SCREEN_WIDTH, SCREEN_HEIGHT, player):
-        self.collisions()
+        self.collisions(state)
         positions = self.uranium_manager.to_positions()
         positions.append(player.to_position())
         self.neutron_manager.update(
