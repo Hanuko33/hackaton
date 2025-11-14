@@ -3,6 +3,8 @@ import pygame
 speed = 0.2
 player_width = 10
 player_height = 10
+
+
 class Player:
     def __init__(self):
         self.x = 100
@@ -12,13 +14,14 @@ class Player:
         self.points = 0
         self.lives = 5
 
-
     def draw(self, screen):
-        #screen.blit(self.image, (self.x, self.y))
-        #text = str((self.points), True, "white")
-        pygame.draw.rect(screen, (0, 255, 0), (self.x, self.y, player_width, player_height))
-        print(self.vx, self.vy)
+        # screen.blit(self.image, (self.x, self.y))
+        # text = str((self.points), True, "white")
+        pygame.draw.rect(screen, (0, 255, 0),
+                         (self.x, self.y, player_width, player_height))
 
+    def to_position(self):
+        return (self.x, self.y)
 
     def key(self, keys):
         if (keys[pygame.K_LEFT]):
@@ -29,7 +32,6 @@ class Player:
                 self.vx = 0
         if self.vx < -10:
             self.vx = -10
-        #self.vx = max(self.vx, -10)
 
         if (keys[pygame.K_DOWN]):
             self.vy += speed
@@ -39,7 +41,6 @@ class Player:
                 self.vy = 0
         if self.vy > 10:
             self.vy = 10
-        #self.vy = max(self.vy, 10)
 
         if (keys[pygame.K_UP]):
             self.vy -= speed
@@ -49,7 +50,6 @@ class Player:
                 self.vy = 0
         if self.vy < -10:
             self.vy = -10
-        # self.vy = max(self.vy, -10)
 
         if (keys[pygame.K_RIGHT]):
             self.vx += speed
@@ -59,9 +59,6 @@ class Player:
                 self.vx = 0
         if self.vx > 10:
             self.vx = 10
-        #self.vx = max(self.vx, 10)
-
-
 
     def update(self, SCREEN_WIDTH, SCREEN_HEIGHT):
         self.x += self.vx
@@ -78,8 +75,3 @@ class Player:
         if self.y < 0:
             self.y = 1
             self.vy = (-self.vy) / 3
-
-
-
-
-
