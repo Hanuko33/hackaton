@@ -51,6 +51,6 @@ while running:
     neutron_uranium_manager.update(state, SCREEN_WIDTH, SCREEN_HEIGHT, player)
     explosion_manager.clear_explosions()
     explosion_manager.draw(screen)
-    state.draw(screen)
-    
+    state.draw(screen, font)
+
 pygame.quit()
