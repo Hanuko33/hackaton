@@ -1,4 +1,5 @@
 #!/bin/python3
+from sfx import sfx
 import pygame
 from os import listdir
 explosion_dir = "./textures/explosions/"
@@ -35,6 +36,7 @@ class ExplosionManager:
 
     def add(self, x, y):
         self.explosions.append(Explosion(x, y))
+        sfx.play_explosion()
 
     def clear_explosions(self):
         for e in self.explosions:

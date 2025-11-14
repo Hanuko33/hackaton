@@ -15,7 +15,10 @@ class Uranium:
 
     def draw(self, screen):
         modified = uranium_image.copy().convert_alpha()
-        modified.fill(((1000 - self.satisfied) / 6, self.satisfied / 6, 255),
+        color = ((1000 - self.satisfied) / 6, self.satisfied / 6, 255)
+        color = max(color, 0)
+        color = min(color, 255)
+        modified.fill(color,
                       special_flags=pygame.BLEND_RGBA_MIN)
         screen.blit(modified, (self.x - 32, self.y - 32))
 

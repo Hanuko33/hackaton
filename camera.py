@@ -1,0 +1,20 @@
+class Camera:
+    def __init__(self):
+        self.x = 0
+        self.y = 0
+
+    def update(self,
+               SCREEN_WIDTH,
+               SCREEN_HEIGHT,
+               WORLD_WIDTH,
+               WORLD_HEIGHT,
+               player
+               ):
+        self.x = player.x - SCREEN_WIDTH / 2
+        self.x = self.x if self.x > 0 else 0
+        self.x = self.x if self.x < WORLD_WIDTH - \
+            SCREEN_WIDTH else WORLD_WIDTH - SCREEN_WIDTH
+        self.y = player.y - SCREEN_HEIGHT / 2
+        self.y = self.y if self.y > 0 else 0
+        self.y = self.y if self.y < WORLD_HEIGHT - \
+            SCREEN_HEIGHT else WORLD_HEIGHT - SCREEN_HEIGHT
