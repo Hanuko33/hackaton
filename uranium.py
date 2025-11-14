@@ -1,0 +1,53 @@
+import pygame
+from random import randint
+
+
+class Uranium:  # TODO: IMAGE
+    def __init__(self, x, y, satisfaction):
+        self.x = x
+        self.y = y
+        self.satisfied = satisfaction
+        self.max_satisfaction = satisfaction
+
+    def draw(self, screen):  # TODO: IMAGE, after we have image,
+        # change color on image accordingly
+        pygame.draw.rect(screen,
+                         (
+                             255,
+                             self.satisfied * 255 / self.max_satisfaction,
+                             self.satisfied * 255 / self.max_satisfaction
+                         ),
+                         (self.x, self.y, 10, 10))
+
+    def update(self):
+        divide_by = self.satisfied / 500
+        divide_by = divide_by if divide_by > 0.25 else 0.25
+        self.x += randint(-1, 1) / divide_by
+        self.y += randint(-1, 1) / divide_by
+        self.satisfied -= 1
+
+
+class UraniumManager:
+    def __init__(self):
+        self.uranium: "Uranium" = []
+
+    def add(self, x, y, t):
+        self.uranium.append(Uranium(x, y, 1000 - t / 10))
+
+    def draw(self, screen: "pygame.Surface"):
+        for u in self.uranium:
+            u.draw(screen)
+
+    def to_positions(self):
+        retval = []
+        for u in self.uranium:
+            retval.append((u.x, u.y))
+        return retval
+
+    def update(self):
+        for u in self.uranium:
+            u.update()
+            if (u.satisfied < 0):
+                self.uranium.remove(u)
+                # TODO: score down, core instability up
+                break

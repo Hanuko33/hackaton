@@ -1,6 +1,7 @@
 #!/bin/python3
 import pygame
 from pygame.locals import QUIT, MOUSEBUTTONDOWN
+from neutron_uranium_glue import neutron_uranium_manager
 
 from player import Player
 
@@ -30,7 +31,15 @@ def handle_events():
 
         if event.type == MOUSEBUTTONDOWN:
             x, y = pygame.mouse.get_pos()
-            print(x, y)
+
+
+neutron_uranium_manager.add_uranium(50, 50, 1)
+neutron_uranium_manager.add_uranium(100, 100, 1)
+neutron_uranium_manager.add_uranium(100, 50, 1)
+neutron_uranium_manager.add_neutron(50, 50)
+neutron_uranium_manager.add_neutron(150, 150)
+neutron_uranium_manager.add_neutron(120, 150)
+
 
 player = Player()
 while running:
@@ -41,6 +50,8 @@ while running:
     handle_events()
     keys = pygame.key.get_pressed()
     player.key(keys)
+    neutron_uranium_manager.draw(screen)
+    neutron_uranium_manager.update(t, SCREEN_WIDTH, SCREEN_HEIGHT, player)
     player.update(SCREEN_WIDTH, SCREEN_HEIGHT)
     player.draw(screen)
 
