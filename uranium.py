@@ -14,7 +14,10 @@ class Uranium:
         self.max_satisfaction = satisfaction
 
     def draw(self, screen):
-        screen.blit(uranium_image, (self.x - 32, self.y - 32))
+        modified = uranium_image.copy().convert_alpha()
+        modified.fill(((1000 - self.satisfied) / 6, self.satisfied / 6, 255),
+                      special_flags=pygame.BLEND_RGBA_MIN)
+        screen.blit(modified, (self.x - 32, self.y - 32))
 
     def update(self):
         divide_by = self.satisfied / 500
@@ -48,7 +51,7 @@ class UraniumManager:
                 self.uranium.remove(u)
                 state.score -= 5
                 state.reactor_sanity -= 1
-                for x in range(-32, 32, 8):
-                    for y in range(-32, 32, 8):
+                for x in range(-32, 32, 16):
+                    for y in range(-32, 32, 16):
                         explosion_manager.add(u.x + x, u.y + y)
                 break
