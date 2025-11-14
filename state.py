@@ -17,9 +17,9 @@ class State:
         self.tick = 0
         self.max_reactor_sanity = 20
 
-    def draw(self, screen, font):
+    def draw(self, screen, font, SCREEN_HEIGHT):
         bar_width = int(250 * self.reactor_sanity / self.max_reactor_sanity)
-        screen.blit(empty_bar_texture, (55, 500))
+        screen.blit(empty_bar_texture, (55, SCREEN_HEIGHT - 100))
         chopped = pygame.transform.chop(
             bar_texture, (
                 bar_width - self.reactor_sanity / self.max_reactor_sanity,
@@ -28,11 +28,11 @@ class State:
                 0
             )
         )
-        screen.blit(chopped, (55, 500))
+        screen.blit(chopped, (55, SCREEN_HEIGHT - 100))
         text = font.render(f"Reactor Sanity: {
             self.reactor_sanity} / {self.max_reactor_sanity}",
             True, (255, 255, 255))
-        screen.blit(text, (60, 470))
+        screen.blit(text, (60, SCREEN_HEIGHT - 150))
 
 
 state = State()
