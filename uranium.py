@@ -2,23 +2,19 @@ import pygame
 from random import randint
 from explosion import explosion_manager
 
+uranium_image = pygame.image.load("./textures/Uranium.png")
+uranium_image = pygame.transform.scale(uranium_image, (64, 64))
 
-class Uranium:  # TODO: IMAGE
+
+class Uranium:
     def __init__(self, x, y, satisfaction):
         self.x = x
         self.y = y
         self.satisfied = satisfaction
         self.max_satisfaction = satisfaction
 
-    def draw(self, screen):  # TODO: IMAGE, after we have image,
-        # change color on image accordingly
-        pygame.draw.rect(screen,
-                         (
-                             255,
-                             self.satisfied * 255 / self.max_satisfaction,
-                             self.satisfied * 255 / self.max_satisfaction
-                         ),
-                         (self.x, self.y, 10, 10))
+    def draw(self, screen):
+        screen.blit(uranium_image, (self.x - 32, self.y - 32))
 
     def update(self):
         divide_by = self.satisfied / 500
