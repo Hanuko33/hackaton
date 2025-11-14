@@ -49,5 +49,6 @@ while running:
     player.draw(screen)
     explosion_manager.clear_explosions()
     explosion_manager.draw(screen)
-
+    state.draw(screen)
+    
 pygame.quit()

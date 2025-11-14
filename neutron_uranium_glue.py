@@ -41,6 +41,7 @@ class NeutronUraniumManager:
             SCREEN_HEIGHT,
         )
         self.uranium_manager.update(state)
+
         uranium_delay = 60 - state.tick / 75
         uranium_delay = uranium_delay if uranium_delay > 10 else 10
 
