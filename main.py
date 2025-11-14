@@ -33,14 +33,6 @@ def handle_events():
             x, y = pygame.mouse.get_pos()
 
 
-neutron_uranium_manager.add_uranium(50, 50, 1)
-neutron_uranium_manager.add_uranium(100, 100, 1)
-neutron_uranium_manager.add_uranium(100, 50, 1)
-neutron_uranium_manager.add_neutron(50, 50)
-neutron_uranium_manager.add_neutron(150, 150)
-neutron_uranium_manager.add_neutron(120, 150)
-
-
 player = Player()
 while running:
     pygame.display.update()
