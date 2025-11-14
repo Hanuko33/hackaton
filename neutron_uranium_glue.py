@@ -41,7 +41,7 @@ class NeutronUraniumManager:
         )
         self.uranium_manager.update(state)
         uranium_delay = 80 - state.tick / 100  # TODO: test balancing
-        uranium_delay = uranium_delay if uranium_delay < 10 else 10
+        uranium_delay = uranium_delay if uranium_delay > 10 else 10
 
         if (self.lt_uranium + uranium_delay < state.tick):
             self.lt_uranium = state.tick

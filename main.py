@@ -46,5 +46,6 @@ while running:
     neutron_uranium_manager.update(state, SCREEN_WIDTH, SCREEN_HEIGHT, player)
     player.update(SCREEN_WIDTH, SCREEN_HEIGHT)
     player.draw(screen)
+    state.draw(screen)
 
 pygame.quit()
