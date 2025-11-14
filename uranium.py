@@ -1,7 +1,6 @@
 import pygame
 from random import randint
 from explosion import explosion_manager
-import numpy as np
 
 uranium_image = pygame.image.load("./textures/Uranium.png")
 uranium_image = pygame.transform.scale(uranium_image, (64, 64))
