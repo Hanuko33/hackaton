@@ -5,6 +5,7 @@ from neutron_uranium_glue import neutron_uranium_manager
 
 from player import Player
 from state import state
+from explosion import explosion_manager
 
 pygame.init()
 
@@ -14,7 +15,7 @@ FPS = 60
 
 screen: "pygame.Surface" = pygame.display.set_mode(
     (SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Życie małego uranka")
+pygame.display.set_caption("URANEX HALF-LIFE")
 clock = pygame.time.Clock()
 
 # font = pygame.font.Font("file_name.ttf", 32)
@@ -46,5 +47,7 @@ while running:
     neutron_uranium_manager.update(state, SCREEN_WIDTH, SCREEN_HEIGHT, player)
     player.update(SCREEN_WIDTH, SCREEN_HEIGHT)
     player.draw(screen)
+    explosion_manager.clear_explosions()
+    explosion_manager.draw(screen)
 
 pygame.quit()
