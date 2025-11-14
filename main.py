@@ -59,30 +59,34 @@ while running:
     pygame.display.update()
     clock.tick(FPS)
     state.tick += 1
-    world_surface.blit(background, (0, 0))
     handle_events()
-    keys = pygame.key.get_pressed()
-    player.key(keys)
-    player.update(WORLD_WIDTH,
-                  WORLD_HEIGHT)
-    player.draw(world_surface)
-    neutron_uranium_manager.draw(world_surface)
-    neutron_uranium_manager.update(
-        state, WORLD_WIDTH, WORLD_HEIGHT, player)
-    explosion_manager.clear_explosions()
-    explosion_manager.draw(screen)
-    state.draw(screen)
     if state.reactor_sanity <= 0:
         if state.lost_tick == -1:
-            for i in range(0, SCREEN_WIDTH, 60):
-                for j in range(0, SCREEN_HEIGHT, 60):
+            for i in range(0, WORLD_WIDTH, 100):
+                for j in range(0, WORLD_HEIGHT, 100):
                     explosion_manager.add(i, j)
             state.lost_tick = state.tick
+            music.play_lost()
         if state.lost_tick + 10 < state.tick:
-            screen.blit(game_over_image, (0, 0))
+            scaled = pygame.transform.scale(
+                game_over_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
+            screen.blit(scaled, (0, 0))
+    else:
+        world_surface.blit(background, (0, 0))
+        keys = pygame.key.get_pressed()
+        player.key(keys)
+        player.update(WORLD_WIDTH,
+                      WORLD_HEIGHT)
+        player.draw(world_surface)
+        neutron_uranium_manager.draw(world_surface)
+        neutron_uranium_manager.update(
+            state, WORLD_WIDTH, WORLD_HEIGHT, player)
+        explosion_manager.clear_explosions()
+        explosion_manager.draw(screen)
+        state.draw(screen, font, SCREEN_HEIGHT)
+        explosion_manager.draw(world_surface)
+        screen.blit(world_surface, (-camera.x, -camera.y))
+        state.draw(screen, font, SCREEN_HEIGHT)
 
-    explosion_manager.draw(world_surface)
-    screen.blit(world_surface, (-camera.x, -camera.y))
-    state.draw(screen, font, SCREEN_HEIGHT)
 pygame.mixer.quit()
 pygame.quit()

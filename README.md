@@ -13,5 +13,10 @@
 Copyright/Attribution Notice: 
 Music by Cleyton Kauffman - https://soundcloud.com/cleytonkauffman
 ```
+#### Sadness.ogg - licenced under CC0 (public domain) - by Kistol - https://opengameart.org/content/sadness
+```
+Attribution Instructions: 
+Music by Kistol, but credit is not required.
+```
 
 Rest of assets are either made by our team, or by chatgpt (and then modified by our team)
