@@ -42,7 +42,8 @@ def intro(screen, font):
         screen.blit(background_, (0, 0))
         t += 1
         if t > 5:
-            txt = font.render("press space or lmb to skip", True, (50, 50, 50))
+            txt = font.render(
+                "press space or any mouse button to skip", True, (50, 50, 50))
             screen.blit(txt, (SCREEN_WIDTH - txt.get_width(),
                         SCREEN_HEIGHT - txt.get_height()))
         i = 0
