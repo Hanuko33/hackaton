@@ -74,6 +74,9 @@ sfx.load()
 highscore = 0
 
 intro(screen, font)
+(SCREEN_WIDTH, SCREEN_HEIGHT) = screen.get_size()
+background_scaled = pygame.transform.scale(
+    background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 while running:
     (SCREEN_WIDTH, SCREEN_HEIGHT) = screen.get_size()
