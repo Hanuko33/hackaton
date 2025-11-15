@@ -53,8 +53,6 @@ times_text_pl = {
 
 
 clock = pygame.time.Clock()
-print(times_text)
-print(times_text_pl)
 
 
 def intro(screen, font):
