@@ -2,9 +2,6 @@ import pygame
 from pygame.locals import QUIT, KEYDOWN, MOUSEBUTTONDOWN
 from music import music
 
-t = 0
-running = True
-
 background = pygame.image.load("./textures/wizardtower.png")
 
 times_text = {
@@ -52,14 +49,15 @@ times_text_pl = {
 }
 
 
-clock = pygame.time.Clock()
-
-
 def intro(screen, font):
+    clock = pygame.time.Clock()
     music.play_intro()
     global running
     global t
+    t = 0
+    running = True
     polish = False
+    fullscreen = 1
     while running:
         (SCREEN_WIDTH, SCREEN_HEIGHT) = screen.get_size()
         background_ = pygame.transform.scale(
@@ -94,6 +92,16 @@ def intro(screen, font):
                 if event.key == pygame.K_p:
                     polish ^= 1
                     polish = bool(polish)
+                if event.key == pygame.K_F11:
+                    fullscreen ^= 1
+                    print(fullscreen)
+                    if fullscreen:
+                        screen = pygame.display.set_mode(
+                            (0, 0), pygame.FULLSCREEN | pygame.RESIZABLE)
+                    else:
+                        screen = pygame.display.set_mode(
+                            (SCREEN_WIDTH - 50, SCREEN_HEIGHT - 50),
+                            pygame.RESIZABLE)
             if event.type == MOUSEBUTTONDOWN:
                 running = False
         pygame.display.update()

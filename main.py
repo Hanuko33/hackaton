@@ -1,7 +1,7 @@
 #!/bin/python3
 import pygame
 from pygame.locals import (QUIT, MOUSEBUTTONDOWN, MOUSEBUTTONUP,
-                           RESIZABLE, VIDEORESIZE)
+                           RESIZABLE, VIDEORESIZE, FULLSCREEN, KEYDOWN)
 from neutron_uranium_glue import neutron_uranium_manager
 
 from player import Player
@@ -24,7 +24,7 @@ WORLD_WIDTH = 1500
 WORLD_HEIGHT = 900
 
 screen: "pygame.Surface" = pygame.display.set_mode(
-    (SCREEN_WIDTH, SCREEN_HEIGHT), RESIZABLE)
+    (0, 0), RESIZABLE | FULLSCREEN)
 world_surface = pygame.Surface((SCREEN_WIDTH + WORLD_WIDTH,
                                 SCREEN_HEIGHT + WORLD_HEIGHT))
 pygame.display.set_caption("URANEX HALF-LIFE")
@@ -39,11 +39,16 @@ background_scaled = pygame.transform.scale(
 font = pygame.font.SysFont("Calibri", 32)
 
 running = True
+fullscreen = True
 
 
 def handle_events():
     global running
+    global fullscreen
     global background_scaled
+    global screen
+    global SCREEN_WIDTH
+    global SCREEN_HEIGHT
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False
@@ -60,6 +65,18 @@ def handle_events():
                 state.hold = 0
             if event.button == 3:
                 state.rhold = 0
+
+        if event.type == KEYDOWN:
+            if event.key == pygame.K_F11:
+                fullscreen ^= 1
+                print(fullscreen)
+                if fullscreen:
+                    screen = pygame.display.set_mode(
+                        (0, 0), pygame.FULLSCREEN | pygame.RESIZABLE)
+                else:
+                    screen = pygame.display.set_mode(
+                        (SCREEN_WIDTH - 50, SCREEN_HEIGHT - 50),
+                        pygame.RESIZABLE)
 
         if event.type == VIDEORESIZE:
             (SCREEN_WIDTH, SCREEN_HEIGHT) = screen.get_size()
