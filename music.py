@@ -16,5 +16,12 @@ class Music:
         pygame.mixer.music.load("./sounds/music/Sadness.ogg")
         pygame.mixer.music.play(-1)
 
+    def play_intro(self):
+        pygame.mixer.music.load("./sounds/music/MiddelWeie.flac")
+        pygame.mixer.music.play()
+
+    def stop(self):
+        pygame.mixer.music.stop()
+
 
 music = Music()

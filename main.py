@@ -11,6 +11,7 @@ from sfx import sfx
 from music import music
 from levels import levels
 from particle import particle_manager
+from intro import intro
 
 pygame.init()
 pygame.mixer.init()
@@ -52,6 +53,8 @@ player = Player()
 camera = Camera()
 sfx.load()
 highscore = 0
+
+intro(screen, font)
 
 while running:
     (SCREEN_WIDTH, SCREEN_HEIGHT) = screen.get_size()
