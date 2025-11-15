@@ -17,6 +17,7 @@ class State:
         self.tick = 0
         self.max_reactor_sanity = 20
         self.lost_tick = -1
+        self.hold = 0
 
     def draw(self, screen, font, SCREEN_HEIGHT):
         bar_width = int(350 * self.reactor_sanity / self.max_reactor_sanity)

@@ -1,6 +1,7 @@
 #!/bin/python3
 import pygame
-from pygame.locals import QUIT, MOUSEBUTTONDOWN, RESIZABLE, VIDEORESIZE
+from pygame.locals import (QUIT, MOUSEBUTTONDOWN, MOUSEBUTTONUP,
+                           RESIZABLE, VIDEORESIZE)
 from neutron_uranium_glue import neutron_uranium_manager
 
 from player import Player
@@ -48,11 +49,14 @@ def handle_events():
             running = False
 
         if event.type == MOUSEBUTTONDOWN:
+            state.hold = 1
             x, y = pygame.mouse.get_pos()
+
+        if event.type == MOUSEBUTTONUP:
+            state.hold = 0
 
         if event.type == VIDEORESIZE:
             (SCREEN_WIDTH, SCREEN_HEIGHT) = screen.get_size()
-            print(SCREEN_WIDTH, SCREEN_HEIGHT)
             background_scaled = pygame.transform.scale(
                 background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
@@ -113,7 +117,10 @@ while running:
         world_surface.blit(background, (0, 0))
         screen.blit(background_scaled, (0, 0))
         keys = pygame.key.get_pressed()
-        player.key(keys, delta)
+        player.key(keys, delta, state)
+        if state.hold:
+            x, y = pygame.mouse.get_pos()
+            player.mouse(x + camera.x, y + camera.y, delta)
         player.update(WORLD_WIDTH,
                       WORLD_HEIGHT, delta)
         player.draw(world_surface)

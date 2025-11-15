@@ -21,10 +21,25 @@ class Player:
     def to_position(self):
         return (self.x, self.y)
 
-    def key(self, keys, delta):
+    def mouse(self, mx, my, delta):
+        print(mx, my)
+        dx = mx - self.x
+        dy = my - self.y
+        print(dx, dy)
+
+        distance = (dx ** 2 + dy ** 2) ** 0.5
+
+        if distance > 0:
+            dx /= distance
+            dy /= distance
+
+            self.vx += dx * speed * delta
+            self.vy += dy * speed * delta
+
+    def key(self, keys, delta, state):
         if (keys[pygame.K_LEFT]):
             self.vx -= speed * delta
-        elif self.vx < 0:
+        elif self.vx < 0 and not state.hold:
             self.vx += speed * 2 * delta
             if self.vx < 1 and self.vx > -1:
                 self.vx = 0
@@ -33,7 +48,7 @@ class Player:
 
         if (keys[pygame.K_DOWN]):
             self.vy += speed * delta
-        elif self.vy > 0:
+        elif self.vy > 0 and not state.hold:
             self.vy -= speed * 2 * delta
             if self.vy < 1 and self.vy > -1:
                 self.vy = 0
@@ -42,7 +57,7 @@ class Player:
 
         if (keys[pygame.K_UP]):
             self.vy -= speed * delta
-        elif self.vy < 0:
+        elif self.vy < 0 and not state.hold:
             self.vy += speed * 2 * delta
             if self.vy < 1 and self.vy > -1:
                 self.vy = 0
@@ -51,7 +66,7 @@ class Player:
 
         if (keys[pygame.K_RIGHT]):
             self.vx += speed * delta
-        elif self.vx > 0:
+        elif self.vx > 0 and not state.hold:
             self.vx -= speed * 2 * delta
             if self.vx < 1 and self.vx > -1:
                 self.vx = 0
