@@ -94,7 +94,6 @@ def intro(screen, font):
                     polish = bool(polish)
                 if event.key == pygame.K_F11:
                     fullscreen ^= 1
-                    print(fullscreen)
                     if fullscreen:
                         screen = pygame.display.set_mode(
                             (0, 0), pygame.FULLSCREEN | pygame.RESIZABLE)

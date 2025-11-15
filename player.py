@@ -13,6 +13,7 @@ class Player:
         self.y = 100
         self.vx = 0
         self.vy = 0
+        self.reached = 0
 
     def reset(self):
         self.__init__()
@@ -22,6 +23,24 @@ class Player:
 
     def to_position(self):
         return (self.x, self.y)
+
+    def automatic(self, positions, delta):
+        if len(positions) < 1 + self.reached:
+            self.reached = 0
+            return
+        dx = positions[self.reached][0] - self.x
+        dy = positions[self.reached][1] - self.y
+
+        distance = (dx ** 2 + dy ** 2) ** 0.5
+
+        if distance > 0:
+            dx /= distance
+            dy /= distance
+
+            self.vx += dx * speed * delta
+            self.vy += dy * speed * delta
+        if distance < 100:
+            self.reached += 1
 
     def mouse(self, mx, my, delta):
         dx = mx - self.x
