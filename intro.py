@@ -48,7 +48,7 @@ def intro(screen, font):
                         SCREEN_HEIGHT - txt.get_height()))
         i = 0
         for tt in times_text:
-            if t > tt * 5:
+            if t > tt * 3:
                 txt = font.render(times_text[tt], True, (255, 255, 255))
                 screen.blit(txt, (5, txt.get_height() * i + 5))
             i += 1
