@@ -1,5 +1,5 @@
 import pygame
-from pygame.locals import QUIT, KEYDOWN
+from pygame.locals import QUIT, KEYDOWN, MOUSEBUTTONDOWN
 from music import music
 
 t = 0
@@ -42,7 +42,8 @@ def intro(screen, font):
         screen.blit(background_, (0, 0))
         t += 1
         if t > 5:
-            txt = font.render("press space to skip", True, (50, 50, 50))
+            txt = font.render(
+                "press space or any mouse button to skip", True, (50, 50, 50))
             screen.blit(txt, (SCREEN_WIDTH - txt.get_width(),
                         SCREEN_HEIGHT - txt.get_height()))
         i = 0
@@ -59,5 +60,7 @@ def intro(screen, font):
             if event.type == KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     running = False
+            if event.type == MOUSEBUTTONDOWN:
+                running = False
         pygame.display.update()
     music.stop()

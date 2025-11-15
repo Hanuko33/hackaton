@@ -1,6 +1,7 @@
 #!/bin/python3
 import pygame
-from pygame.locals import QUIT, MOUSEBUTTONDOWN, RESIZABLE, VIDEORESIZE
+from pygame.locals import (QUIT, MOUSEBUTTONDOWN, MOUSEBUTTONUP,
+                           RESIZABLE, VIDEORESIZE)
 from neutron_uranium_glue import neutron_uranium_manager
 
 from player import Player
@@ -48,11 +49,20 @@ def handle_events():
             running = False
 
         if event.type == MOUSEBUTTONDOWN:
+            if event.button == 1:
+                state.hold = 1
+            if event.button == 3:
+                state.rhold = 1
             x, y = pygame.mouse.get_pos()
+
+        if event.type == MOUSEBUTTONUP:
+            if event.button == 1:
+                state.hold = 0
+            if event.button == 3:
+                state.rhold = 0
 
         if event.type == VIDEORESIZE:
             (SCREEN_WIDTH, SCREEN_HEIGHT) = screen.get_size()
-            print(SCREEN_WIDTH, SCREEN_HEIGHT)
             background_scaled = pygame.transform.scale(
                 background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
@@ -70,8 +80,13 @@ while running:
     music.update()
     levels.update(font, state, screen, SCREEN_WIDTH,
                   SCREEN_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT)
-    camera.update(SCREEN_WIDTH, SCREEN_HEIGHT,
-                  WORLD_WIDTH, WORLD_HEIGHT, player)
+    if state.rhold:
+        mx, my = pygame.mouse.get_pos()
+        camera.update(SCREEN_WIDTH, SCREEN_HEIGHT,
+                      WORLD_WIDTH, WORLD_HEIGHT, mx, my)
+    else:
+        camera.update(SCREEN_WIDTH, SCREEN_HEIGHT,
+                      WORLD_WIDTH, WORLD_HEIGHT, player.x, player.y)
     pygame.display.update()
     delta = clock.tick(FPS) / 15
     state.tick += 1
@@ -113,7 +128,10 @@ while running:
         world_surface.blit(background, (0, 0))
         screen.blit(background_scaled, (0, 0))
         keys = pygame.key.get_pressed()
-        player.key(keys, delta)
+        player.key(keys, delta, state)
+        if state.hold:
+            x, y = pygame.mouse.get_pos()
+            player.mouse(x + camera.x, y + camera.y, delta)
         player.update(WORLD_WIDTH,
                       WORLD_HEIGHT, delta)
         player.draw(world_surface)
