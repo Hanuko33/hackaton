@@ -51,6 +51,7 @@ player = Player()
 
 camera = Camera()
 sfx.load()
+highscore = 0
 
 while running:
     (SCREEN_WIDTH, SCREEN_HEIGHT) = screen.get_size()
@@ -70,12 +71,28 @@ while running:
                     explosion_manager.add(i, j)
             state.lost_tick = state.tick
             music.play_lost()
+            try:
+                f = open("highscore", "r")
+                highscore = int(f.read())
+                f.close()
+            except FileNotFoundError:
+                pass
+
+            if highscore < state.score:
+                highscore = state.score
+                f = open("highscore", "w")
+                f.write(str(state.score))
+                f.close()
         if state.lost_tick + 10 < state.tick:
             scaled = pygame.transform.scale(
                 game_over_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
             screen.blit(scaled, (0, 0))
         txt = font.render(
             f"You got {state.score} score.", True, (255, 255, 255))
+        screen.blit(txt, (SCREEN_WIDTH / 2 - txt.get_width() /
+                    2, SCREEN_HEIGHT - txt.get_height() * 2 - 10))
+        txt = font.render(
+            f"Highscore: {highscore}.", True, (255, 255, 255))
         screen.blit(txt, (SCREEN_WIDTH / 2 - txt.get_width() /
                     2, SCREEN_HEIGHT - txt.get_height() - 5))
     else:

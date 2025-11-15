@@ -17,7 +17,7 @@ class Levels:
 
     def draw_level_text(self, screen, font, SCREEN_WIDTH, SCREEN_HEIGHT):
         txt = font.render(
-            "!HALF-LIVED URANEX STRIKE INCOMING!", True, (255, 0, 0))
+            "!HALF-LIFED URANEX STRIKE INCOMING!", True, (255, 0, 0))
         x = SCREEN_WIDTH // 2 - txt.get_width() // 2
         y = SCREEN_HEIGHT // 2 - 50
         x += randint(-5, 5)
