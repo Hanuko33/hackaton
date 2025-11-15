@@ -19,4 +19,6 @@ Attribution Instructions:
 Music by Kistol, but credit is not required.
 ```
 
+#### Alarm.flac - licensed under CC0 (public domain) - by yd - https://opengameart.org/content/short-alarm - Shortened by our team, also CC0
+
 Rest of assets are either made by our team, or by chatgpt (and then modified by our team)

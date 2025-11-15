@@ -1,12 +1,8 @@
-#!/bin/python3
 from sfx import sfx
 import pygame
 from os import listdir
 explosion_dir = "./textures/explosions/"
 explosion_images: list[pygame.Surface] = [
-    pygame.image.load(explosion_dir + "/" + name)
-    for name in sorted(listdir(explosion_dir))]
-explosion_images = [
     pygame.transform.scale(pygame.image.load(
         explosion_dir + "/" + name), (64, 64))
     for name in sorted(listdir(explosion_dir))

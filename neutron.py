@@ -60,7 +60,7 @@ class Neutron:
 
         distance = (dx ** 2 + dy ** 2) ** 0.5
 
-        if distance > 0 and distance < 100:
+        if distance > 0 and distance < 150:
             # Normalize the vector
             dx /= distance
             dy /= distance

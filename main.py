@@ -9,6 +9,7 @@ from state import state
 from explosion import explosion_manager
 from sfx import sfx
 from music import music
+from levels import levels
 
 pygame.init()
 pygame.mixer.init()
@@ -26,12 +27,11 @@ world_surface = pygame.Surface((SCREEN_WIDTH + WORLD_WIDTH,
 pygame.display.set_caption("URANEX HALF-LIFE")
 clock = pygame.time.Clock()
 game_over_image = pygame.image.load("textures/GAME_OVER.png")
+background = pygame.transform.scale(pygame.image.load(
+    "./textures/Background.png"), (WORLD_WIDTH, WORLD_HEIGHT))
 
 # font = pygame.font.Font("file_name.ttf", 32)
 font = pygame.font.SysFont("Calibri", 32)
-background = pygame.image.load("./textures/Background.png")
-background = pygame.transform.scale(
-    background, (WORLD_WIDTH, WORLD_HEIGHT))
 
 running = True
 
@@ -52,8 +52,10 @@ camera = Camera()
 sfx.load()
 
 while running:
-    music.update()
     (SCREEN_WIDTH, SCREEN_HEIGHT) = screen.get_size()
+    music.update()
+    levels.update(font, state, screen, SCREEN_WIDTH,
+                  SCREEN_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT)
     camera.update(SCREEN_WIDTH, SCREEN_HEIGHT,
                   WORLD_WIDTH, WORLD_HEIGHT, player)
     pygame.display.update()
