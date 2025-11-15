@@ -1,12 +1,12 @@
 import pygame
 bar_texture = pygame.transform.scale(
     pygame.image.load("./textures/HP_bar.png"),
-    (250, 45)
+    (350, 45)
 )
 
 empty_bar_texture = pygame.transform.scale(
     pygame.image.load("./textures/Empty_HP_bar.png"),
-    (250, 45)
+    (350, 45)
 )
 
 
@@ -19,14 +19,14 @@ class State:
         self.lost_tick = -1
 
     def draw(self, screen, font, SCREEN_HEIGHT):
-        bar_width = int(250 * self.reactor_sanity / self.max_reactor_sanity)
+        bar_width = int(350 * self.reactor_sanity / self.max_reactor_sanity)
 
         screen.blit(empty_bar_texture, (55, SCREEN_HEIGHT - 100))
         chopped = pygame.transform.chop(
             bar_texture, (
                 bar_width - self.reactor_sanity / self.max_reactor_sanity,
                 0,
-                250 - bar_width,
+                350 - bar_width,
                 0
             )
         )
