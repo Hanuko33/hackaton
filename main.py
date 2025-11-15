@@ -49,11 +49,17 @@ def handle_events():
             running = False
 
         if event.type == MOUSEBUTTONDOWN:
-            state.hold = 1
+            if event.button == 1:
+                state.hold = 1
+            if event.button == 3:
+                state.rhold = 1
             x, y = pygame.mouse.get_pos()
 
         if event.type == MOUSEBUTTONUP:
-            state.hold = 0
+            if event.button == 1:
+                state.hold = 0
+            if event.button == 3:
+                state.rhold = 0
 
         if event.type == VIDEORESIZE:
             (SCREEN_WIDTH, SCREEN_HEIGHT) = screen.get_size()
@@ -74,8 +80,13 @@ while running:
     music.update()
     levels.update(font, state, screen, SCREEN_WIDTH,
                   SCREEN_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT)
-    camera.update(SCREEN_WIDTH, SCREEN_HEIGHT,
-                  WORLD_WIDTH, WORLD_HEIGHT, player)
+    if state.rhold:
+        mx, my = pygame.mouse.get_pos()
+        camera.update(SCREEN_WIDTH, SCREEN_HEIGHT,
+                      WORLD_WIDTH, WORLD_HEIGHT, mx, my)
+    else:
+        camera.update(SCREEN_WIDTH, SCREEN_HEIGHT,
+                      WORLD_WIDTH, WORLD_HEIGHT, player.x, player.y)
     pygame.display.update()
     delta = clock.tick(FPS) / 15
     state.tick += 1
