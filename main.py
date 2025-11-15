@@ -73,6 +73,10 @@ while running:
             scaled = pygame.transform.scale(
                 game_over_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
             screen.blit(scaled, (0, 0))
+        txt = font.render(
+            f"You got {state.score} score.", True, (255, 255, 255))
+        screen.blit(txt, (SCREEN_WIDTH / 2 - txt.get_width() /
+                    2, SCREEN_HEIGHT - txt.get_height() - 5))
     else:
         world_surface.blit(background, (0, 0))
         keys = pygame.key.get_pressed()

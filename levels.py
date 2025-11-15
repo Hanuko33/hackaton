@@ -16,8 +16,8 @@ class Levels:
         self.level += 1
 
     def draw_level_text(self, screen, font, SCREEN_WIDTH, SCREEN_HEIGHT):
-        txt = font.render(f"!BAD URANIUM STRIKE INCOMING {
-                          self.level}!", True, (255, 0, 0))
+        txt = font.render(
+            "!HALF-LIVED URANEX STRIKE INCOMING!", True, (255, 0, 0))
         x = SCREEN_WIDTH // 2 - txt.get_width() // 2
         y = SCREEN_HEIGHT // 2 - 50
         x += randint(-5, 5)
@@ -32,7 +32,6 @@ class Levels:
                SCREEN_HEIGHT,
                WORLD_WIDTH,
                WORLD_HEIGHT):
-        print(self.tick_changed, state.tick)
         if (len(neutron_uranium_manager.uranium_manager.uranium) == 0 and
                 self.tick_changed == -1):
             self.tick_changed = state.tick + 1
