@@ -14,9 +14,9 @@ class Neutron:
     def draw(self, screen):
         screen.blit(neutron_image, (self.x - 8, self.y - 8))
 
-    def update(self, SCREEN_WIDTH, SCREEN_HEIGHT):
-        self.x += self.vx
-        self.y += self.vy
+    def update(self, SCREEN_WIDTH, SCREEN_HEIGHT, delta):
+        self.x += self.vx * delta
+        self.y += self.vy * delta
         image_width = 16
         if self.x >= SCREEN_WIDTH - image_width:
             self.vx = (-self.vx) / image_width
@@ -50,7 +50,7 @@ class Neutron:
                 closest_dist = dist
         return closest
 
-    def update_velocity(self, positions):
+    def update_velocity(self, positions, delta):
         closest = self.find_closest_position(positions)
         if not closest:
             return
@@ -65,8 +65,8 @@ class Neutron:
             dx /= distance
             dy /= distance
 
-            self.vx += dx / 2
-            self.vy += dy / 2
+            self.vx += dx / 2 * delta
+            self.vy += dy / 2 * delta
 
 
 class NeutronManager:
@@ -80,7 +80,7 @@ class NeutronManager:
         for n in self.neutrons:
             n.draw(screen)
 
-    def update(self, uranium_positions, SCREEN_WIDTH, SCREEN_HEIGHT):
+    def update(self, uranium_positions, SCREEN_WIDTH, SCREEN_HEIGHT, delta):
         for n in self.neutrons:
-            n.update_velocity(uranium_positions)
-            n.update(SCREEN_WIDTH, SCREEN_HEIGHT)
+            n.update_velocity(uranium_positions, delta)
+            n.update(SCREEN_WIDTH, SCREEN_HEIGHT, delta)

@@ -21,46 +21,46 @@ class Player:
     def to_position(self):
         return (self.x, self.y)
 
-    def key(self, keys):
+    def key(self, keys, delta):
         if (keys[pygame.K_LEFT]):
-            self.vx -= speed
+            self.vx -= speed * delta
         elif self.vx < 0:
-            self.vx += speed * 2
+            self.vx += speed * 2 * delta
             if self.vx < 1 and self.vx > -1:
                 self.vx = 0
         if self.vx < -10:
             self.vx = -10
 
         if (keys[pygame.K_DOWN]):
-            self.vy += speed
+            self.vy += speed * delta
         elif self.vy > 0:
-            self.vy -= speed * 2
+            self.vy -= speed * 2 * delta
             if self.vy < 1 and self.vy > -1:
                 self.vy = 0
         if self.vy > 10:
             self.vy = 10
 
         if (keys[pygame.K_UP]):
-            self.vy -= speed
+            self.vy -= speed * delta
         elif self.vy < 0:
-            self.vy += speed * 2
+            self.vy += speed * 2 * delta
             if self.vy < 1 and self.vy > -1:
                 self.vy = 0
         if self.vy < -10:
             self.vy = -10
 
         if (keys[pygame.K_RIGHT]):
-            self.vx += speed
+            self.vx += speed * delta
         elif self.vx > 0:
-            self.vx -= speed * 2
+            self.vx -= speed * 2 * delta
             if self.vx < 1 and self.vx > -1:
                 self.vx = 0
         if self.vx > 10:
             self.vx = 10
 
-    def update(self, SCREEN_WIDTH, SCREEN_HEIGHT):
-        self.x += self.vx
-        self.y += self.vy
+    def update(self, SCREEN_WIDTH, SCREEN_HEIGHT, delta):
+        self.x += self.vx * delta
+        self.y += self.vy * delta
         if self.x >= SCREEN_WIDTH - player_width:
             self.vx = (-self.vx) / 3
             self.x = SCREEN_WIDTH - player_width - 1

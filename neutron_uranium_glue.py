@@ -34,7 +34,7 @@ class NeutronUraniumManager:
                     # 25% for nothing to happen
                     break
 
-    def update(self, state, SCREEN_WIDTH, SCREEN_HEIGHT, player, font):
+    def update(self, state, SCREEN_WIDTH, SCREEN_HEIGHT, player, font, delta):
         self.collisions(state, font)
         positions = self.uranium_manager.to_positions()
         positions.append(player.to_position())
@@ -42,8 +42,9 @@ class NeutronUraniumManager:
             positions,
             SCREEN_WIDTH,
             SCREEN_HEIGHT,
+            delta
         )
-        self.uranium_manager.update(state)
+        self.uranium_manager.update(state, delta)
 
         # uranium_delay = 60 - state.tick / 75
         # uranium_delay = uranium_delay if uranium_delay > 10 else 10

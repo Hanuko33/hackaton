@@ -33,9 +33,9 @@ class Particle:
             self.vy = -1
             self.vx = 0
 
-    def update(self):
-        self.x += self.vx
-        self.y += self.vy
+    def update(self, delta):
+        self.x += self.vx * delta
+        self.y += self.vy * delta
         self.live -= 1
 
     def draw(self, screen: "pygame.Surface"):
@@ -46,9 +46,9 @@ class ParticleManager:
     def __init__(self):
         self.particles: list["Particle"] = []
 
-    def update(self):
+    def update(self, delta):
         for p in self.particles:
-            p.update()
+            p.update(delta)
             if p.live < 0:
                 self.particles.remove(p)
                 break

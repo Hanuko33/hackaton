@@ -61,7 +61,7 @@ while running:
     camera.update(SCREEN_WIDTH, SCREEN_HEIGHT,
                   WORLD_WIDTH, WORLD_HEIGHT, player)
     pygame.display.update()
-    clock.tick(FPS)
+    delta = clock.tick(FPS) / 15
     state.tick += 1
     handle_events()
     if state.reactor_sanity <= 0:
@@ -98,14 +98,14 @@ while running:
     else:
         world_surface.blit(background, (0, 0))
         keys = pygame.key.get_pressed()
-        player.key(keys)
+        player.key(keys, delta)
         player.update(WORLD_WIDTH,
-                      WORLD_HEIGHT)
+                      WORLD_HEIGHT, delta)
         player.draw(world_surface)
         neutron_uranium_manager.draw(world_surface)
         neutron_uranium_manager.update(
-            state, WORLD_WIDTH, WORLD_HEIGHT, player, font)
-        particle_manager.update()
+            state, WORLD_WIDTH, WORLD_HEIGHT, player, font, delta)
+        particle_manager.update(delta)
         particle_manager.draw(world_surface)
         explosion_manager.clear_explosions()
         explosion_manager.draw(world_surface)
