@@ -22,6 +22,6 @@ class Camera:
         self.y = self.y if self.y > 0 else 0
         self.y = self.y if self.y < WORLD_HEIGHT - \
             SCREEN_HEIGHT else WORLD_HEIGHT - SCREEN_HEIGHT
-        if SCREEN_HEIGHT > SCREEN_HEIGHT:
+        if SCREEN_HEIGHT > WORLD_HEIGHT:
             self.y = self.y if self.y > 0 and self.y < WORLD_HEIGHT - \
                 SCREEN_HEIGHT else (WORLD_HEIGHT - SCREEN_HEIGHT) / 2
