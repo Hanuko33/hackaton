@@ -39,6 +39,8 @@ class Player:
 
             self.vx += dx * speed * delta
             self.vy += dy * speed * delta
+        self.vx = max(min(self.vx, 10), -10)
+        self.vy = max(min(self.vy, 10), -10)
         if distance < 100:
             self.reached += 1
 
