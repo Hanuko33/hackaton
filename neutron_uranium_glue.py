@@ -11,7 +11,12 @@ class NeutronUraniumManager:
         self.neutron_manager = NeutronManager()
         self.uranium_manager = UraniumManager()
         self.lt_neutron = -1000
-        self.lt_uranium = -1000
+        # self.lt_uranium = -1000
+
+    def reset(self):
+        self.lt_neutron = -1000
+        self.neutron_manager.reset()
+        self.uranium_manager.reset()
 
     def draw(self, screen: "pygame.Surface"):
         self.uranium_manager.draw(screen)

@@ -33,7 +33,10 @@ class Uranium:
 
 class UraniumManager:
     def __init__(self):
-        self.uranium: "Uranium" = []
+        self.uranium: list["Uranium"] = []
+
+    def reset(self):
+        self.uranium.clear()
 
     def add(self, x, y, t):
         self.uranium.append(Uranium(x, y, 1000 - t / 10))

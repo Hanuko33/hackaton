@@ -20,6 +20,9 @@ class State:
         self.hold = 0
         self.rhold = 0
 
+    def reset(self):
+        self.__init__()
+
     def draw(self, screen, font, SCREEN_HEIGHT):
         bar_width = int(350 * self.reactor_sanity / self.max_reactor_sanity)
 

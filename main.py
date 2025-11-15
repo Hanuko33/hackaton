@@ -111,6 +111,15 @@ while running:
     delta = clock.tick(FPS) / 15
     state.tick += 1
     handle_events()
+    if pygame.key.get_pressed()[pygame.K_ESCAPE]:
+        state.reset()
+        player.reset()
+        explosion_manager.reset()
+        music.stop()
+        levels.reset()
+        particle_manager.reset()
+        neutron_uranium_manager.reset()
+        continue
     if state.reactor_sanity <= 0:
         if state.lost_tick == -1:
             for i in range(0, WORLD_WIDTH, 100):
@@ -142,6 +151,12 @@ while running:
             f"Highscore: {highscore}.", True, (255, 255, 255))
         screen.blit(txt, (SCREEN_WIDTH / 2 - txt.get_width() /
                     2, SCREEN_HEIGHT - txt.get_height() - 5))
+        txt = font.render(
+            "Press escape to play again.", True, (255, 255, 255))
+        screen.blit(txt, (SCREEN_WIDTH / 2 - txt.get_width() /
+                    2, 5))
+        if state.lost_tick + 300 < state.tick:
+            running = False
     else:
         world_surface = pygame.transform.chop(
             world_surface, (WORLD_WIDTH, WORLD_HEIGHT, 1000, 1000))

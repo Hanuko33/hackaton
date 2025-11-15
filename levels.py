@@ -9,6 +9,9 @@ class Levels:
         self.level = 1
         self.tick_changed = -1
 
+    def reset(self):
+        self.__init__()
+
     def next_level(self, state, WORLD_WIDTH, WORLD_HEIGHT):
         for _ in range(self.level * 10):
             neutron_uranium_manager.add_uranium(
