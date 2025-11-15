@@ -12,5 +12,9 @@ class Music:
             pygame.mixer.music.load("./sounds/music/" + choice(self.filenames))
             pygame.mixer.music.play()
 
+    def play_lost(self):
+        pygame.mixer.music.load("./sounds/music/Sadness.ogg")
+        pygame.mixer.music.play(-1)
+
 
 music = Music()

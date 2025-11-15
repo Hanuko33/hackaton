@@ -1,5 +1,3 @@
-import time
-
 import pygame
 from random import randint
 from explosion import explosion_manager
@@ -17,9 +15,10 @@ class Uranium:
 
     def draw(self, screen):
         modified = uranium_image.copy().convert_alpha()
-        color = ((1000 - self.satisfied) / 6, self.satisfied / 6, 255)
-        color = max(color, 0)
-        color = min(color, 255)
+        color = [(1000 - self.satisfied) / 6, self.satisfied / 6, 255]
+        for i in range(0, 3):
+            color[i] = max(color[i], 0)
+            color[i] = min(color[i], 255)
         modified.fill(color,
                       special_flags=pygame.BLEND_RGBA_MIN)
         screen.blit(modified, (self.x - 32, self.y - 32))
