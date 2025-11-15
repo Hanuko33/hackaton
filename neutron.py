@@ -73,6 +73,9 @@ class NeutronManager:
     def __init__(self):
         self.neutrons: list["Neutron"] = []
 
+    def reset(self):
+        self.neutrons.clear()
+
     def add(self, x, y):
         self.neutrons.append(Neutron(x, y))
 

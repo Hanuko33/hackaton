@@ -13,7 +13,9 @@ class Player:
         self.y = 100
         self.vx = 0
         self.vy = 0
-        self.points = 0
+
+    def reset(self):
+        self.__init__()
 
     def draw(self, screen):
         screen.blit(player_image, (self.x - 32, self.y - 32))

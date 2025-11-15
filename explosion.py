@@ -30,6 +30,9 @@ class ExplosionManager:
     def __init__(self):
         self.explosions: list[Explosion] = []
 
+    def reset(self):
+        self.explosions.clear()
+
     def add(self, x, y):
         self.explosions.append(Explosion(x, y))
         sfx.play_explosion()

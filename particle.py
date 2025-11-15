@@ -46,6 +46,9 @@ class ParticleManager:
     def __init__(self):
         self.particles: list["Particle"] = []
 
+    def reset(self):
+        self.particles.clear()
+
     def update(self, delta):
         for p in self.particles:
             p.update(delta)
