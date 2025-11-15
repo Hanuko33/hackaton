@@ -22,10 +22,8 @@ class Player:
         return (self.x, self.y)
 
     def mouse(self, mx, my, delta):
-        print(mx, my)
         dx = mx - self.x
         dy = my - self.y
-        print(dx, dy)
 
         distance = (dx ** 2 + dy ** 2) ** 0.5
 
