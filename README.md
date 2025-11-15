@@ -21,4 +21,10 @@ Music by Kistol, but credit is not required.
 
 #### Alarm.flac - licensed under CC0 (public domain) - by yd - https://opengameart.org/content/short-alarm - Shortened by our team, also CC0
 
+#### MiddelWeie.flac - licenced under CC-BY 4.0 - by Yubatake - https://opengameart.org/content/middel-weie - modified by our team
+https://opengameart.org/users/yubatake
+```
+Copyright/Attribution Notice: 
+Please just mention my username and this site. A link to my profile would be nice but it's not necessary.
+```
 Rest of assets are either made by our team, or by chatgpt (and then modified by our team)
