@@ -10,6 +10,7 @@ from explosion import explosion_manager
 from sfx import sfx
 from music import music
 from levels import levels
+from particle import particle_manager
 
 pygame.init()
 pygame.mixer.init()
@@ -86,11 +87,12 @@ while running:
         player.draw(world_surface)
         neutron_uranium_manager.draw(world_surface)
         neutron_uranium_manager.update(
-            state, WORLD_WIDTH, WORLD_HEIGHT, player)
+            state, WORLD_WIDTH, WORLD_HEIGHT, player, font)
+        particle_manager.update()
+        particle_manager.draw(world_surface)
         explosion_manager.clear_explosions()
-        explosion_manager.draw(screen)
-        state.draw(screen, font, SCREEN_HEIGHT)
         explosion_manager.draw(world_surface)
+        state.draw(screen, font, SCREEN_HEIGHT)
         screen.blit(world_surface, (-camera.x, -camera.y))
         state.draw(screen, font, SCREEN_HEIGHT)
 

@@ -53,7 +53,7 @@ class UraniumManager:
             u.update()
             if (u.satisfied < 0):
                 self.uranium.remove(u)
-                state.score -= 1
+                state.score -= 200
                 state.reactor_sanity -= 1
                 for x in range(-32, 32, 16):
                     for y in range(-32, 32, 16):

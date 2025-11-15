@@ -3,6 +3,7 @@ from uranium import UraniumManager
 import pygame
 from random import randint
 from explosion import explosion_manager
+from particle import particle_manager
 
 
 class NeutronUraniumManager:
@@ -16,12 +17,13 @@ class NeutronUraniumManager:
         self.uranium_manager.draw(screen)
         self.neutron_manager.draw(screen)  # NOTE: Draw neutrons ABOVE uranium
 
-    def collisions(self, state):
+    def collisions(self, state, font):
         for u in self.uranium_manager.uranium:
             for n in self.neutron_manager.neutrons:
                 if (n.is_colliding(u)):
-                    state.score += 1
                     explosion_manager.add(n.x, n.y)
+                    state.score += particle_manager.add_random_pair(
+                        n.x, n.y, font)
                     self.uranium_manager.uranium.remove(u)
                     rn = randint(0, 100)
 
@@ -32,8 +34,8 @@ class NeutronUraniumManager:
                     # 25% for nothing to happen
                     break
 
-    def update(self, state, SCREEN_WIDTH, SCREEN_HEIGHT, player):
-        self.collisions(state)
+    def update(self, state, SCREEN_WIDTH, SCREEN_HEIGHT, player, font):
+        self.collisions(state, font)
         positions = self.uranium_manager.to_positions()
         positions.append(player.to_position())
         self.neutron_manager.update(
