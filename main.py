@@ -40,15 +40,50 @@ font = pygame.font.SysFont("Calibri", 32)
 
 running = True
 fullscreen = True
-automatic = True
+automatic = False
+debug = False
+
+
+def draw_debug():
+    i = 0
+    for t in [
+        f"debug: {debug}",
+        f"automatic: {automatic}",
+        f"x: {player.x}",
+        f"y: {player.y}",
+        f"vx: {player.vx}",
+        f"vy: {player.vy}",
+        f"reached: {player.reached}"
+    ]:
+        txt = font.render(t, True, (255, 255, 255))
+        screen.blit(txt, (0, i * txt.get_height()))
+        i += 1
+
+
+def handle_key(key):
+    global automatic
+    global debug
+    global fullscreen
+    global screen
+    match key:
+        case pygame.K_F1:
+            automatic ^= 1
+        case pygame.K_F2:
+            debug ^= 1
+        case pygame.K_F11:
+            fullscreen ^= 1
+            if fullscreen:
+                screen = pygame.display.set_mode(
+                    (0, 0), pygame.FULLSCREEN | pygame.RESIZABLE)
+            else:
+                screen = pygame.display.set_mode(
+                    (SCREEN_WIDTH - 50, SCREEN_HEIGHT - 50),
+                    pygame.RESIZABLE)
 
 
 def handle_events():
-    global automatic
-    global running
-    global fullscreen
     global background_scaled
-    global screen
+    global running
     global SCREEN_WIDTH
     global SCREEN_HEIGHT
     for event in pygame.event.get():
@@ -69,17 +104,7 @@ def handle_events():
                 state.rhold = 0
 
         if event.type == KEYDOWN:
-            if event.key == pygame.K_F1:
-                automatic ^= 1
-            if event.key == pygame.K_F11:
-                fullscreen ^= 1
-                if fullscreen:
-                    screen = pygame.display.set_mode(
-                        (0, 0), pygame.FULLSCREEN | pygame.RESIZABLE)
-                else:
-                    screen = pygame.display.set_mode(
-                        (SCREEN_WIDTH - 50, SCREEN_HEIGHT - 50),
-                        pygame.RESIZABLE)
+            handle_key(event.key)
 
         if event.type == VIDEORESIZE:
             (SCREEN_WIDTH, SCREEN_HEIGHT) = screen.get_size()
@@ -170,7 +195,7 @@ while running:
                 neutron_uranium_manager.uranium_manager.to_positions(), delta)
         else:
             keys = pygame.key.get_pressed()
-        # player.key(keys, delta, state)
+            player.key(keys, delta, state)
         if state.hold:
             x, y = pygame.mouse.get_pos()
             player.mouse(x + camera.x, y + camera.y, delta)
@@ -187,6 +212,8 @@ while running:
         state.draw(screen, font, SCREEN_HEIGHT)
         screen.blit(world_surface, (-camera.x, -camera.y))
         state.draw(screen, font, SCREEN_HEIGHT)
+        if debug:
+            draw_debug()
 
 pygame.mixer.quit()
 pygame.quit()
