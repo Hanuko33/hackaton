@@ -23,11 +23,11 @@ class Uranium:
                       special_flags=pygame.BLEND_RGBA_MIN)
         screen.blit(modified, (self.x - 32, self.y - 32))
 
-    def update(self):
+    def update(self, delta):
         divide_by = self.satisfied / 500
         divide_by = divide_by if divide_by > 0.25 else 0.25
-        self.x += randint(-1, 1) / divide_by
-        self.y += randint(-1, 1) / divide_by
+        self.x += randint(-1, 1) / divide_by * delta
+        self.y += randint(-1, 1) / divide_by * delta
         self.satisfied -= 1
 
 
@@ -48,12 +48,12 @@ class UraniumManager:
             retval.append((u.x, u.y))
         return retval
 
-    def update(self, state):
+    def update(self, state, delta):
         for u in self.uranium:
-            u.update()
+            u.update(delta)
             if (u.satisfied < 0):
                 self.uranium.remove(u)
-                state.score -= 1
+                state.score -= 200
                 state.reactor_sanity -= 1
                 for x in range(-32, 32, 16):
                     for y in range(-32, 32, 16):
