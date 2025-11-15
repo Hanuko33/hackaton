@@ -15,19 +15,21 @@ times_text = {
     1000: "...",
     1200: "The once-vibrant beings were thrown into a reactor...",
     1300: "tainted by a dark energy that warped their essence.",
-    1500: "Yet, amidst the corruption, a spark of hope ignited...",
-    1600: "One of them dared to resist the encroaching darkness.",
-    1700: "...",
-    1800: 'This brave soul was known as "Uranek," the beacon of defiance...',
-    2000: "Though he stood alone, he carried the weight of a world's fate...",
-    2200: "Now, the battle for survival rages on.",
-    2400: "Every day, Uranek confronts the chaos within, striving to reclaim what was lost...",
-    2600: "He tirelessly works to stabilize the reactor, seeking to restore balance...",
-    2700: "...",
+    1600: "Yet, amidst the corruption, a spark of hope ignited...",
+    1700: "One of them dared to resist the encroaching darkness.",
+    1800: "...",
+    1900: 'This brave soul was known as "Uranek," the beacon of defiance...',
+    2100: "Though he stood alone, he carried the weight of a world's fate...",
+    2300: "Now, the battle for survival rages on.",
+    2500: "Every day, Uranek confronts the chaos within, striving to reclaim what was lost...",
+    2700: "He tirelessly works to stabilize the reactor, seeking to restore balance...",
     2800: "...",
     2900: "...",
-    3000: "Will you join him in this fight for redemption?"
+    3000: "...",
+    3100: "Will you join him in this fight for redemption?"
 }
+
+clock = pygame.time.Clock()
 
 
 def intro(screen, font):
@@ -40,7 +42,7 @@ def intro(screen, font):
             # we don't need performance here =)
             background, (SCREEN_WIDTH, SCREEN_HEIGHT))
         screen.blit(background_, (0, 0))
-        t += 1
+        t += clock.tick(120) / 15
         if t > 5:
             txt = font.render(
                 "press space or any mouse button to skip", True, (50, 50, 50))
@@ -48,11 +50,11 @@ def intro(screen, font):
                         SCREEN_HEIGHT - txt.get_height()))
         i = 0
         for tt in times_text:
-            if t > tt * 3:
+            if t > tt:
                 txt = font.render(times_text[tt], True, (255, 255, 255))
                 screen.blit(txt, (5, txt.get_height() * i + 5))
             i += 1
-        if t > 40000:
+        if t > 4000:
             running = False
         for event in pygame.event.get():
             if event.type == QUIT:
