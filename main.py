@@ -53,7 +53,10 @@ def draw_debug():
         f"y: {player.y}",
         f"vx: {player.vx}",
         f"vy: {player.vy}",
-        f"reached: {player.reached}"
+        f"reached: {player.reached}",
+        f"fullscreen: {fullscreen}",
+        f"lvl: {levels.level}",
+        f"score: {state.score}"
     ]:
         txt = font.render(t, True, (255, 255, 255))
         screen.blit(txt, (0, i * txt.get_height()))
