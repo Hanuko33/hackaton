@@ -18,7 +18,7 @@ class Music:
 
     def play_intro(self):
         pygame.mixer.music.load("./sounds/music/MiddelWeie.flac")
-        pygame.mixer.music.play()
+        pygame.mixer.music.play(-1)
 
     def stop(self):
         pygame.mixer.music.stop()

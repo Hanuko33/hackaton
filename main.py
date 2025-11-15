@@ -1,6 +1,6 @@
 #!/bin/python3
 import pygame
-from pygame.locals import QUIT, MOUSEBUTTONDOWN, RESIZABLE
+from pygame.locals import QUIT, MOUSEBUTTONDOWN, RESIZABLE, VIDEORESIZE
 from neutron_uranium_glue import neutron_uranium_manager
 
 from player import Player
@@ -31,6 +31,8 @@ clock = pygame.time.Clock()
 game_over_image = pygame.image.load("textures/GAME_OVER.png")
 background = pygame.transform.scale(pygame.image.load(
     "./textures/Background.png"), (WORLD_WIDTH, WORLD_HEIGHT))
+background_scaled = pygame.transform.scale(
+    background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # font = pygame.font.Font("file_name.ttf", 32)
 font = pygame.font.SysFont("Calibri", 32)
@@ -40,12 +42,19 @@ running = True
 
 def handle_events():
     global running
+    global background_scaled
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False
 
         if event.type == MOUSEBUTTONDOWN:
             x, y = pygame.mouse.get_pos()
+
+        if event.type == VIDEORESIZE:
+            (SCREEN_WIDTH, SCREEN_HEIGHT) = screen.get_size()
+            print(SCREEN_WIDTH, SCREEN_HEIGHT)
+            background_scaled = pygame.transform.scale(
+                background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 
 player = Player()
@@ -99,7 +108,10 @@ while running:
         screen.blit(txt, (SCREEN_WIDTH / 2 - txt.get_width() /
                     2, SCREEN_HEIGHT - txt.get_height() - 5))
     else:
+        world_surface = pygame.transform.chop(
+            world_surface, (WORLD_WIDTH, WORLD_HEIGHT, 1000, 1000))
         world_surface.blit(background, (0, 0))
+        screen.blit(background_scaled, (0, 0))
         keys = pygame.key.get_pressed()
         player.key(keys, delta)
         player.update(WORLD_WIDTH,
