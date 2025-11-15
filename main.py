@@ -40,9 +40,11 @@ font = pygame.font.SysFont("Calibri", 32)
 
 running = True
 fullscreen = True
+automatic = True
 
 
 def handle_events():
+    global automatic
     global running
     global fullscreen
     global background_scaled
@@ -67,9 +69,10 @@ def handle_events():
                 state.rhold = 0
 
         if event.type == KEYDOWN:
+            if event.key == pygame.K_F1:
+                automatic ^= 1
             if event.key == pygame.K_F11:
                 fullscreen ^= 1
-                print(fullscreen)
                 if fullscreen:
                     screen = pygame.display.set_mode(
                         (0, 0), pygame.FULLSCREEN | pygame.RESIZABLE)
@@ -162,8 +165,12 @@ while running:
             world_surface, (WORLD_WIDTH, WORLD_HEIGHT, 1000, 1000))
         world_surface.blit(background, (0, 0))
         screen.blit(background_scaled, (0, 0))
-        keys = pygame.key.get_pressed()
-        player.key(keys, delta, state)
+        if automatic:
+            player.automatic(
+                neutron_uranium_manager.uranium_manager.to_positions(), delta)
+        else:
+            keys = pygame.key.get_pressed()
+        # player.key(keys, delta, state)
         if state.hold:
             x, y = pygame.mouse.get_pos()
             player.mouse(x + camera.x, y + camera.y, delta)
